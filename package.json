@@ -1,0 +1,31 @@
+{
+  "name": "backend-js",
+  "version": "1.0.0",
+  "description": "backend de gastos en js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JorgeGarciaMdz/challenge-fullstack-reactjs-jorge-garcia.git"
+  },
+  "author": "jorge garcia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JorgeGarciaMdz/challenge-fullstack-reactjs-jorge-garcia/issues"
+  },
+  "homepage": "https://github.com/JorgeGarciaMdz/challenge-fullstack-reactjs-jorge-garcia#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.2",
+    "sequelize": "^6.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14"
+  }
+}
