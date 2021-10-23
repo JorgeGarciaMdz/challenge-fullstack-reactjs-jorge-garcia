@@ -18,35 +18,49 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING(150),
       allowNull: false,
-      notEmpty: true,
-      len: [2, 150]
+      validate: {
+        len: [3, 150],
+        notEmpty: true,
+      }
     },
     lastname: {
       type: DataTypes.STRING(150),
       allowNull: false,
-      notEmpty: true,
-      len: [2, 150]
+      validate: {
+        notEmpty: true,
+        len: [2, 150]
+      }
     },
     birthday: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-      isDate: true,
+      validate: {
+        isDate: true,
+      }
     },
     dni: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      isInt: true
+      validate: {
+        isInt: true,
+        min: 0
+      }
     },
     email: {
       type: DataTypes.STRING(150),
       allowNull: false,
-      notEmpty: true,
-      isEmail: true,
+      validate: {
+        notEmpty: true,
+        isEmail: true,
+      }
     },
     password: {
       type: DataTypes.STRING(150),
       allowNull: false,
-      len: [8, 150]
+      validate: {
+        notEmpty: true,
+        len: [8, 150]
+      }
     },
     deletedAt: DataTypes.DATE
   }, {

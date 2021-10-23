@@ -25,19 +25,26 @@ module.exports = (sequelize, DataTypes) => {
     concept: {
       type: DataTypes.STRING(150),
       allowNull: false,
-      notEmpty: true,
-      len: [2, 150]
+      validate: {
+        notEmpty: true,
+        len: [3, 150]
+      }
     },
     amount: {
       type: DataTypes.FLOAT,
       allowNull: false,
-      isFloat: true,
+      validate: {
+        isFloat: true,
+        min: 0
+      }
     },
     typeOperation: {
       type: DataTypes.STRING(25),
       allowNull: false,
-      notEmpty: true,
-      len: [3, 25]
+      validate: {
+        notEmpty: true,
+        len: [3, 25]
+      }
     },
     deletedAt: DataTypes.DATEONLY
   }, {
