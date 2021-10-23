@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const operation = require('./operation');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -16,27 +17,36 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     name: {
       type: DataTypes.STRING(150),
-      allowNull: false
+      allowNull: false,
+      notEmpty: true,
+      len: [2, 150]
     },
     lastname: {
       type: DataTypes.STRING(150),
-      allowNull: false
+      allowNull: false,
+      notEmpty: true,
+      len: [2, 150]
     },
     birthday: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      allowNull: false,
+      isDate: true,
     },
     dni: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      isInt: true
     },
     email: {
       type: DataTypes.STRING(150),
-      allowNull: false
+      allowNull: false,
+      notEmpty: true,
+      isEmail: true,
     },
     password: {
       type: DataTypes.STRING(150),
-      allowNull: false
+      allowNull: false,
+      len: [8, 150]
     },
     deletedAt: DataTypes.DATE
   }, {

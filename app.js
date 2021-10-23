@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/api/v1/user', require('./routes/user.routes'));
+app.use('/api/v1/operation', require('./routes/operation.routes'));
 
 app.listen(port, () => {
     console.log(`server is running at port: ${port}`);
