@@ -1,2 +1,5 @@
 # challenge-fullstack-reactjs-jorge-garcia
-challenge fullstack react, node, express, mysql
+
+# Branch 2.backend-only-js
+
+Rama base para el backend en nodejs, express, sequelize
