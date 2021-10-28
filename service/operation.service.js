@@ -61,11 +61,14 @@ module.exports = {
         )
     },
 
-    async findAll(){
+    async findAll( order='ASC', limit=10, offset = 0){
         return await Operation.findAll({
             where: {
                 deletedAt: null
             },
+            order: [['createdAt', order]],
+            limit: limit,
+            offset: offset,
             attributes: ['id', 'concept', 'amount', 'typeOperation']
         });
     },

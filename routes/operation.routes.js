@@ -4,7 +4,19 @@ const router = express.Router();
 const operationService = require('../service/operation.service');
 
 router.get('/', async (req, res) => {
-    res.json(await operationService.findAll());
+    order = 'DESC';
+    limit = 10;
+    offset = 0;
+    if( req.query.order && req.query.order.toUpperCase() === 'ASC')
+        order = req.query.order.toUpperCase()
+
+    if( req.query.limit && parseInt(req.query.limit) > 0 )
+        limit = parseInt(req.query.limit);
+    
+    if( req.query.offset && parseInt(req.query.offset) > 0 )
+        offset = parseInt(req.query.offset) * limit;
+
+    res.json(await operationService.findAll( order, limit, offset ));
 });
 
 router.get('/:id', async (req, res) => {

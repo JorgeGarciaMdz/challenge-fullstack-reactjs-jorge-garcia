@@ -8,7 +8,7 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 
 app.use(logger('dev'));
 app.use(cors());
-app.options('*',cors());
+app.options('*/*',cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

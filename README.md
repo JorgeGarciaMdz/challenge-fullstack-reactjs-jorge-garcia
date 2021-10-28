@@ -22,13 +22,18 @@ Se deben reemplazar los siguientes parametros en **development**:
 El proceso de migracion de modelos es muy similar a realizar una migración con Rails.
 1. Instalar sequelize globalmente: `npm i sequelize -g`.
 2. Correr migración: `sequelize db:migrate`.
-3. Correr seed: `sequelize db:seed:all`.
 
 En este punto, se han creado las tablas en la base de datos que representan los modelos con sus respectivas asociasiones.
 
 ### Correr proyecto
 
 * npm run dev
+
+### Poblar base de datos
+
+Una vez que el proyecto se ejecuta por primera vez, se debe ejecutar la siguiente instrucción:
+
+* `sequelize db:seed:all`
 
 ### EndPoint 
 
