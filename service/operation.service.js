@@ -73,6 +73,15 @@ module.exports = {
         });
     },
 
+    async sum(attribute, operation){
+        return await Operation.sum(
+            attribute, 
+            { where: { 
+                deletedAt: null,
+                typeOperation: operation
+             } })
+    },
+
     async findById(id) {
         return await Operation.findAll({
             where: {

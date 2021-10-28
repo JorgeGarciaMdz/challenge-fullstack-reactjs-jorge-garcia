@@ -3,6 +3,15 @@ const router = express.Router();
 
 const operationService = require('../service/operation.service');
 
+router.get('/status/', async (req, res) => {
+    console.log('get status');
+    let status = {
+        in: await operationService.sum('amount', 'INGRESO'),
+        out: await operationService.sum('amount', 'EGRESO')
+    };
+    res.json(status);
+});
+
 router.get('/', async (req, res) => {
     order = 'DESC';
     limit = 10;
@@ -21,7 +30,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     res.json(await operationService.findById(req.params.id));
-})
+});
 
 router.post('/', async (req, res) => {
     operation = {
