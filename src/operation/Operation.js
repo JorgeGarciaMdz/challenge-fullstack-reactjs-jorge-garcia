@@ -1,5 +1,7 @@
 import React from 'react';
 import { Table, Button, Container, Row, Col, ButtonGroup } from 'react-bootstrap';
+import { ModalGeneric } from '../Modal/modal';
+
 
 export class Operation extends React.Component {
 
@@ -9,7 +11,10 @@ export class Operation extends React.Component {
             operation: [],
             order: 'asc',
             limit: 2,
-            offset: 0
+            offset: 0,
+            showModal: false,
+            deleteId: 0,
+            status: []
         }
 
         this.pageBack = this.pageBack.bind(this);
@@ -17,6 +22,9 @@ export class Operation extends React.Component {
         this.fetchOperation = this.fetchOperation.bind(this);
         this.limitUp = this.limitUp.bind(this);
         this.limitDown = this.limitDown.bind(this);
+        this.deleteOperation = this.deleteOperation.bind(this);
+        this.callBackDeleteOperation = this.callBackDeleteOperation.bind(this);
+        this.fetchStatus = this.fetchStatus.bind(this);
     }
 
     pageNext() {
@@ -34,7 +42,7 @@ export class Operation extends React.Component {
     }
 
     limitUp() {
-        if (this.state.operation.length >=  this.state.limit) {
+        if (this.state.operation.length >= this.state.limit) {
             this.fetchOperation(this.state.order, this.state.limit + 1, this.state.offset);
             this.setState({
                 limit: this.state.limit + 1
@@ -53,12 +61,32 @@ export class Operation extends React.Component {
 
     componentDidMount() {
         this.fetchOperation(this.state.order, this.state.limit, this.state.offset);
+        this.fetchStatus();
     }
 
     componentDidUpdate() {
     }
 
-    fetchOperation(order = 'asc', limit = 5, offset = 0) {
+    deleteOperation(e, id) {
+        this.setState({ showModal: true, deleteId: id });
+    }
+
+    callBackDeleteOperation(confirm) {
+        this.setState({ showModal: false });
+        if (confirm === true) {
+            fetch(`http://127.0.0.1:3000/api/v1/operation/${this.state.deleteId}`, { method: 'DELETE' })
+                .then(res => {
+                    console.log('status code: ' + res.status);
+                    this.fetchOperation();
+                    this.fetchStatus();
+                })
+                .catch(e => {
+                    console.error('Error: ' + e);
+                });
+        }
+    }
+
+    fetchOperation(order = this.state.order, limit = this.state.limit, offset = this.state.offset) {
         let myHeaders = new Headers({
             "Content-Type": "application/json",
             "Connection": "keep-alive"
@@ -81,11 +109,27 @@ export class Operation extends React.Component {
             })
     }
 
+    fetchStatus(){
+        fetch(`http://127.0.0.1:3000/api/v1/operation/status`)
+                .then(res => {
+                    console.log('status code: ' + res.status);
+                    return res.json();
+                })
+                .then(data => {
+                    this.setState({status: data});
+                })
+                .catch(e => {
+                    console.error('Error: ' + e);
+                });
+    }
+
     render() {
         return <div>
             <PageLimit pnext={this.pageNext} pback={this.pageBack} page={this.state.offset + 1}
-                items={this.state.limit} limitUp={this.limitUp} limitDown={this.limitDown} />
-            <TableOperation operation={this.state.operation}></TableOperation>
+                items={this.state.limit} limitUp={this.limitUp} limitDown={this.limitDown}
+                in_out={this.state.status} />
+            <TableOperation operation={this.state.operation} deleteOperation={this.deleteOperation}></TableOperation>
+            <ModalGeneric show={this.state.showModal} callback={this.callBackDeleteOperation} />
         </div>;
     }
 }
@@ -107,6 +151,15 @@ function PageLimit(props) {
                     <Button variant="outline-dark" onClick={props.limitDown}>Down</Button>
                 </ButtonGroup>
             </Col>
+            <Col>
+                <Container>
+                    <Row xs="auto">
+                        <Col>In: {props.in_out.in}</Col>
+                        <Col>Out: {props.in_out.out}</Col>
+                        <Col>Total: { props.in_out.in - props.in_out.out}</Col>
+                    </Row>
+                </Container>
+            </Col>
         </Row>
     </Container>;
 }
@@ -114,7 +167,7 @@ function PageLimit(props) {
 function TableOperation(props) {
     return <Table striped bordered hover>
         <TableHeadOperation></TableHeadOperation>
-        <TableBodyOperation operation={props.operation} ></TableBodyOperation>
+        <TableBodyOperation operation={props.operation} deleteOperation={props.deleteOperation} ></TableBodyOperation>
     </Table>;
 }
 
@@ -132,9 +185,10 @@ function TableHeadOperation() {
 
 function TableBodyOperation(props) {
     return <tbody>
-        <TableTrOperation operation={props.operation}></TableTrOperation>
+        <TableTrOperation operation={props.operation} deleteOperation={props.deleteOperation}></TableTrOperation>
     </tbody>;
 }
+
 
 function TableTrOperation(props) {
     if (props && props.operation instanceof Array) {
@@ -149,7 +203,7 @@ function TableTrOperation(props) {
                         <Row>
                             <Col>
                                 <Button variant="warning">Edit</Button>{' '}
-                                <Button variant="danger">Delete</Button>
+                                <Button variant="danger" onClick={(e) => props.deleteOperation(e, t.id)} >Delete</Button>
                             </Col>
                         </Row>
                     </Container>
