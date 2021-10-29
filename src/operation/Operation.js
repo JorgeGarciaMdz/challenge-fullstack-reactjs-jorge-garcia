@@ -109,27 +109,49 @@ export class Operation extends React.Component {
             })
     }
 
-    fetchStatus(){
+    fetchStatus() {
         fetch(`http://127.0.0.1:3000/api/v1/operation/status`)
-                .then(res => {
-                    console.log('status code: ' + res.status);
-                    return res.json();
-                })
-                .then(data => {
-                    this.setState({status: data});
-                })
-                .catch(e => {
-                    console.error('Error: ' + e);
-                });
+            .then(res => {
+                console.log('status code: ' + res.status);
+                return res.json();
+            })
+            .then(data => {
+                this.setState({ status: data });
+            })
+            .catch(e => {
+                console.error('Error: ' + e);
+            });
     }
 
     render() {
         return <div>
-            <PageLimit pnext={this.pageNext} pback={this.pageBack} page={this.state.offset + 1}
-                items={this.state.limit} limitUp={this.limitUp} limitDown={this.limitDown}
-                in_out={this.state.status} />
-            <TableOperation operation={this.state.operation} deleteOperation={this.deleteOperation}></TableOperation>
-            <ModalGeneric show={this.state.showModal} callback={this.callBackDeleteOperation} />
+            <Container style={{ margin: 1 + 'em' }}>
+                <Row>
+                    <Col>
+                        <Button variant="outline-primary" onClick={() => this.props.changeView('co')}>
+                            New Operation
+                        </Button>
+                    </Col>
+                    <Col>
+                        <Button variant="outline-primary">
+                            Show Users
+                        </Button>
+                    </Col>
+                </Row>
+            </Container>
+            <Container>
+                <Row style={{ margin: 1 + 'em' }}>
+                    <PageLimit pnext={this.pageNext} pback={this.pageBack} page={this.state.offset + 1}
+                        items={this.state.limit} limitUp={this.limitUp} limitDown={this.limitDown}
+                        in_out={this.state.status} />
+                </Row>
+                <Row>
+                    <TableOperation operation={this.state.operation} deleteOperation={this.deleteOperation}></TableOperation>
+                </Row>
+                <Row>
+                    <ModalGeneric show={this.state.showModal} callback={this.callBackDeleteOperation} />
+                </Row>
+            </Container>
         </div>;
     }
 }
@@ -152,11 +174,11 @@ function PageLimit(props) {
                 </ButtonGroup>
             </Col>
             <Col>
-                <Container>
+                <Container style={{ paddingTop: 7 + 'px' }}>
                     <Row xs="auto">
                         <Col>In: {props.in_out.in}</Col>
                         <Col>Out: {props.in_out.out}</Col>
-                        <Col>Total: { props.in_out.in - props.in_out.out}</Col>
+                        <Col>Total: {props.in_out.in - props.in_out.out}</Col>
                     </Row>
                 </Container>
             </Col>
@@ -193,7 +215,7 @@ function TableBodyOperation(props) {
 function TableTrOperation(props) {
     if (props && props.operation instanceof Array) {
         return props.operation.map(t => {
-            return <tr>
+            return <tr key={t.id}>
                 <td>{t.id}</td>
                 <td>{t.concept}</td>
                 <td>{t.amount}</td>

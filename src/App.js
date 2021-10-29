@@ -1,7 +1,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container } from 'react-bootstrap';
-import { Operation } from './operation/Operation';
+import { Controller } from './Controller/controller';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         </Container>
       </Navbar>
       <Container>
-        <Operation />
+        <Controller />
       </Container>
     </div>
   );
