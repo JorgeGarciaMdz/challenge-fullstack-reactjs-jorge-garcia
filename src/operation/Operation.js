@@ -10,7 +10,7 @@ export class Operation extends React.Component {
         this.state = {
             operation: [],
             order: 'asc',
-            limit: 2,
+            limit: 5,
             offset: 0,
             showModal: false,
             deleteId: 0,
@@ -25,6 +25,7 @@ export class Operation extends React.Component {
         this.deleteOperation = this.deleteOperation.bind(this);
         this.callBackDeleteOperation = this.callBackDeleteOperation.bind(this);
         this.fetchStatus = this.fetchStatus.bind(this);
+        this.editOperation = this.editOperation.bind(this);
     }
 
     pageNext() {
@@ -71,12 +72,17 @@ export class Operation extends React.Component {
         this.setState({ showModal: true, deleteId: id });
     }
 
+    editOperation(id) {
+        console.log(id);
+        this.props.callbackSetOperation(id);
+        this.props.changeView('co');
+    }
+
     callBackDeleteOperation(confirm) {
         this.setState({ showModal: false });
         if (confirm === true) {
             fetch(`http://127.0.0.1:3000/api/v1/operation/${this.state.deleteId}`, { method: 'DELETE' })
                 .then(res => {
-                    console.log('status code: ' + res.status);
                     this.fetchOperation();
                     this.fetchStatus();
                 })
@@ -112,7 +118,6 @@ export class Operation extends React.Component {
     fetchStatus() {
         fetch(`http://127.0.0.1:3000/api/v1/operation/status`)
             .then(res => {
-                console.log('status code: ' + res.status);
                 return res.json();
             })
             .then(data => {
@@ -128,7 +133,7 @@ export class Operation extends React.Component {
             <Container style={{ margin: 1 + 'em' }}>
                 <Row>
                     <Col>
-                        <Button variant="outline-primary" onClick={() => this.props.changeView('co')}>
+                        <Button variant="outline-primary" onClick={() => {this.props.callbackSetOperation(null); this.props.changeView('co')}}>
                             New Operation
                         </Button>
                     </Col>
@@ -146,10 +151,12 @@ export class Operation extends React.Component {
                         in_out={this.state.status} />
                 </Row>
                 <Row>
-                    <TableOperation operation={this.state.operation} deleteOperation={this.deleteOperation}></TableOperation>
+                    <TableOperation operation={this.state.operation} deleteOperation={this.deleteOperation}
+                        editOperation={this.editOperation}></TableOperation>
                 </Row>
                 <Row>
-                    <ModalGeneric show={this.state.showModal} callback={this.callBackDeleteOperation} />
+                    <ModalGeneric show={this.state.showModal} callback={this.callBackDeleteOperation}
+                        head={"Delete Operation"} body={"Click confirm to delete operation."} />
                 </Row>
             </Container>
         </div>;
@@ -176,9 +183,9 @@ function PageLimit(props) {
             <Col>
                 <Container style={{ paddingTop: 7 + 'px' }}>
                     <Row xs="auto">
-                        <Col>In: {props.in_out.in}</Col>
-                        <Col>Out: {props.in_out.out}</Col>
-                        <Col>Total: {props.in_out.in - props.in_out.out}</Col>
+                        <Col><b>In:</b> {props.in_out.in}</Col>
+                        <Col><b>Out:</b> {props.in_out.out}</Col>
+                        <Col><b>Total:</b> {props.in_out.in - props.in_out.out}</Col>
                     </Row>
                 </Container>
             </Col>
@@ -189,7 +196,8 @@ function PageLimit(props) {
 function TableOperation(props) {
     return <Table striped bordered hover>
         <TableHeadOperation></TableHeadOperation>
-        <TableBodyOperation operation={props.operation} deleteOperation={props.deleteOperation} ></TableBodyOperation>
+        <TableBodyOperation operation={props.operation} deleteOperation={props.deleteOperation}
+            editOperation={props.editOperation}></TableBodyOperation>
     </Table>;
 }
 
@@ -200,6 +208,7 @@ function TableHeadOperation() {
             <th>Concept</th>
             <th>Amount</th>
             <th>Operation Type</th>
+            <th>Operation Date</th>
             <th></th>
         </tr>
     </thead>;
@@ -207,7 +216,8 @@ function TableHeadOperation() {
 
 function TableBodyOperation(props) {
     return <tbody>
-        <TableTrOperation operation={props.operation} deleteOperation={props.deleteOperation}></TableTrOperation>
+        <TableTrOperation operation={props.operation} deleteOperation={props.deleteOperation}
+            editOperation={props.editOperation}></TableTrOperation>
     </tbody>;
 }
 
@@ -220,11 +230,12 @@ function TableTrOperation(props) {
                 <td>{t.concept}</td>
                 <td>{t.amount}</td>
                 <td>{t.typeOperation}</td>
+                <td>{t.date}</td>
                 <td>
                     <Container>
                         <Row>
                             <Col>
-                                <Button variant="warning">Edit</Button>{' '}
+                                <Button variant="warning" onClick={() => props.editOperation(t.id)}>Edit</Button>{' '}
                                 <Button variant="danger" onClick={(e) => props.deleteOperation(e, t.id)} >Delete</Button>
                             </Col>
                         </Row>

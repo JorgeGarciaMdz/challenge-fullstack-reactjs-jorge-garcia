@@ -21,7 +21,7 @@ export class ModalGeneric extends React.Component {
             <div>
                 <Modal show={this.props.show} onHide={this.handleCancel}>
                     <Modal.Header closeButton>
-                        <Modal.Title>{this.props.head? this.props.body: 'Title Modal'}</Modal.Title>
+                        <Modal.Title>{this.props.head? this.props.head: 'Title Modal'}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{this.props.body? this.props.body: 'Message body'}</Modal.Body>
                     <Modal.Footer>
