@@ -18,7 +18,8 @@ module.exports = {
         typeOperation: "INGRESO",
         user_id: 1,
         updatedAt: "2021-10-23T14:07:34.433",
-        createdAt: "2021-10-23T14:07:34.433"
+        createdAt: "2021-10-23T14:07:34.433",
+        date:"2021-10-01"
       },
       {
         concept: "viaticos",
@@ -26,7 +27,8 @@ module.exports = {
         typeOperation: "EGRESO",
         user_id: 1,
         updatedAt: "2021-10-23T14:17:34.433",
-        createdAt: "2021-10-23T14:17:34.433"
+        createdAt: "2021-10-23T14:17:34.433",
+        date: "2021-10-03"
       },
       {
         concept: "viandas",
@@ -34,7 +36,8 @@ module.exports = {
         typeOperation: "EGRESO",
         user_id: 1,
         updatedAt: "2021-10-23T14:27:34.433",
-        createdAt: "2021-10-23T14:27:34.433"
+        createdAt: "2021-10-23T14:27:34.433",
+        date: "2021-10-23"
       },
       {
         concept: "fletes",
@@ -42,7 +45,8 @@ module.exports = {
         typeOperation: "INGRESO",
         user_id: 2,
         updatedAt: "2021-10-23T14:37:34.433",
-        createdAt: "2021-10-23T14:37:34.433"
+        createdAt: "2021-10-23T14:37:34.433",
+        date: "2021-10-13"
       },
       {
         concept: "viaticos",
@@ -50,7 +54,8 @@ module.exports = {
         typeOperation: "EGRESO",
         user_id: 2,
         updatedAt: "2021-10-23T14:47:34.433",
-        createdAt: "2021-10-23T14:47:34.433"
+        createdAt: "2021-10-23T14:47:34.433",
+        date: "2021-10-29"
       },
       {
         concept: "viandas",
@@ -58,7 +63,8 @@ module.exports = {
         typeOperation: "EGRESO",
         user_id: 2,
         updatedAt: "2021-10-23T14:57:34.433",
-        createdAt: "2021-10-23T14:57:34.433"
+        createdAt: "2021-10-23T14:57:34.433",
+        date: "2021-10-06"
       },
       {
         concept: "viandas",
@@ -66,7 +72,8 @@ module.exports = {
         typeOperation: "EGRESO",
         user_id: 2,
         updatedAt: "2021-10-23T15:57:34.433",
-        createdAt: "2021-10-23T15:57:34.433"
+        createdAt: "2021-10-23T15:57:34.433",
+        date: "2021-10-19"
       }
       
     ], {});

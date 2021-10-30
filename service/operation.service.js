@@ -66,10 +66,10 @@ module.exports = {
             where: {
                 deletedAt: null
             },
-            order: [['createdAt', order]],
+            order: [['date', order]],
             limit: limit,
             offset: offset,
-            attributes: ['id', 'concept', 'amount', 'typeOperation']
+            attributes: ['id', 'concept', 'amount', 'typeOperation', 'date']
         });
     },
 
@@ -88,7 +88,7 @@ module.exports = {
                 id: id,
                 deletedAt: null
             },
-            attributes: ['id', 'concept', 'amount', 'typeOperation', 'createdAt']
+            attributes: ['id', 'concept', 'amount', 'typeOperation', 'user_id', 'date']
         });
     }
 }

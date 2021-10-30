@@ -37,7 +37,8 @@ router.post('/', async (req, res) => {
         concept: req.body.concept,
         amount: req.body.amount,
         typeOperation: req.body.typeOperation.toUpperCase(),
-        user_id: req.body.user_id
+        user_id: req.body.user_id,
+        date: req.body.date
     }
     let new_operation = await operationService.create(operation);
     if (new_operation instanceof Array) {
@@ -51,7 +52,9 @@ router.put('/', async (req, res) => {
     operation = {
         id: req.body.id,
         concept: req.body.concept,
-        amount: req.body.amount
+        amount: req.body.amount,
+        user_id: req.body.user_id,
+        date: req.body.date
     }
     let up_operation = await operationService.update(operation);
     if (up_operation instanceof Array) {
