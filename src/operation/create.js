@@ -88,7 +88,6 @@ export class Create extends React.Component {
     fetch('http://127.0.0.1:3000/api/v1/user')
       .then(res => res.json())
       .then(data => {
-        console.log('---_> ' + JSON.stringify(this.state));
         this.setState({ users: data });
         if (this.state.user_id) {
           data.forEach(u => {

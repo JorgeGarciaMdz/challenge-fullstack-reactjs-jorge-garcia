@@ -138,7 +138,7 @@ export class Operation extends React.Component {
                         </Button>
                     </Col>
                     <Col>
-                        <Button variant="outline-primary">
+                        <Button variant="outline-primary" onClick={() => this.props.changeView('us')}>
                             Show Users
                         </Button>
                     </Col>
