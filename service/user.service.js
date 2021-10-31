@@ -6,7 +6,7 @@ module.exports = {
             where: {
                 deletedAt: null
             },
-            attributes: ['id', 'name', 'lastname']
+            attributes: ['id', 'name', 'lastname', 'dni', 'birthday', 'email']
         });
     },
 

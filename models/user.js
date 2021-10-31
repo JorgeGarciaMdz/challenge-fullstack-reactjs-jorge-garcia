@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: true,
-        isEmail: true,
+        // isEmail: true,
       }
     },
     password: {
@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: [8, 150]
+        len: [4, 150]
       }
     },
     deletedAt: DataTypes.DATE
