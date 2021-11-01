@@ -28,7 +28,7 @@ export class User extends React.Component {
             </Container>
             <Container>
                 <hr />
-                <UserTable />
+                <UserTable setUser={this.props.setUser} changeView={this.props.changeView}/>
             </Container>
         </Container>
     }

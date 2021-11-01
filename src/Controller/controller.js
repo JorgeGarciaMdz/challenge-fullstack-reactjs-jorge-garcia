@@ -9,11 +9,13 @@ export class Controller extends React.Component {
         super(props);
         this.state = {
             active: 'op',
-            operationId: ''
+            operationId: '',
+            userId: null
         }
         this.changeView = this.changeView.bind(this);
         this.setOperation = this.setOperation.bind(this);
         this.formatDate = this.formatDate.bind(this);
+        this.setUser = this.setUser.bind(this);
     }
 
     changeView(active) {
@@ -22,7 +24,11 @@ export class Controller extends React.Component {
     }
 
     setOperation(operationId) {
-        this.setState({ operationId: operationId });
+        this.setState({ operationId: operationId});
+    }
+
+    setUser( userId ){
+        this.setState({ userId: userId} );
     }
 
     formatDate() {
@@ -35,9 +41,9 @@ export class Controller extends React.Component {
         if (this.state.active === 'co')
             return <Create changeView={this.changeView} operationId={this.state.operationId} date={this.formatDate()} />
         if (this.state.active === 'us')
-            return <User changeView={this.changeView} />
+            return <User changeView={this.changeView} setUser={this.setUser}/>
         if (this.state.active === 'cu')
-            return <UserCreate changeView={this.changeView} />
+            return <UserCreate changeView={this.changeView} userId = {this.state.userId} setUser={this.setUser}/>
         return null;
     }
 }
