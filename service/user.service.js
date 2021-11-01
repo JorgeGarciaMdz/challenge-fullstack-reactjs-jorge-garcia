@@ -16,7 +16,7 @@ module.exports = {
                 id: id,
                 deletedAt: null
             },
-            attributes: ['id', 'name', 'lastname']
+            attributes: ['id', 'name', 'lastname', 'dni', 'birthday', 'email', 'password']
         });
     },
 
